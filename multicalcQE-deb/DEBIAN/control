@@ -1,0 +1,9 @@
+Package: multicalc
+Version: 0.2
+Section: base
+Priority: optional
+Architecture: all
+Depends: python3
+Maintainer: Vardhan <vardhan2m21@gmail.com>
+Description: A multipurpose CLI calculator made in Python
+ Supports interest, conversion, math, etc.

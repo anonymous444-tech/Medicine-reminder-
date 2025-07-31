@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+import sys
+import math
+from colorama import Style, Fore, init
+
+init()
+
+# Try importing questionary
+try:
+    import questionary
+    use_questionary = True
+except ImportError:
+    use_questionary = False
+
+# Version check
+if len(sys.argv) > 1 and sys.argv[1] == "-version":
+    print("Multicalc0.2QE")
+    sys.exit(0)
+
+while True:
+    print(Fore.RED + "=" * 40)
+    print(Fore.GREEN + "welcome to multicalc ver. 0.1,select the type you want")
+    print("1 for finance like CI or SI")
+    print("2 for conversion of dollar to native currency(NOTE:ONLY SUPPORTS EUR/INR)")
+    print("3 for normal calculator like add,sub,div,mul")
+    print("4 to exit")
+
+    if use_questionary:
+        a = int(questionary.select(
+            "Enter the number:",
+            choices=["1", "2", "3", "4"]
+        ).ask())
+    else:
+        a = int(input("Enter the number: "))
+
+    print("=" * 40)
+
+    # ---- Define functions here ----
+    def si(a, b, c):
+        return (a * b * c) / 100
+
+    def ci(a, b, c):
+        return a * ((1 + b / 100) ** c)
+
+    def monINR(a):
+        return a * 86
+
+    def monFRA(a):
+        return a * 0.86
+
+    def add(a, b):
+        return a + b
+
+    def sub(a, b):
+        return a - b
+
+    def mul(a, b):
+        return a * b
+
+    def div(a, b):
+        if b != 0:
+            return a / b
+        else:
+            print("Invalid operation")
+
+    # ---- Main logic ----
+    if a == 1:
+        print("CI (1) or SI (2)?")
+        ap = int(questionary.select("Please enter 1 or 2:", choices=["1", "2"]).ask()) if use_questionary else int(input("Please enter 1 or 2: "))
+        if ap == 1:
+            p = float(input("Principal: "))
+            r = float(input("Rate: "))
+            t = float(input("Years: "))
+            print(ci(p, r, t))
+        else:
+            p = float(input("Principal: "))
+            r = float(input("Rate: "))
+            t = float(input("Years: "))
+            print(si(p, r, t))
+    elif a == 2:
+        e = int(questionary.select("Convert to Euro (1) or INR (2)?", choices=["1", "2"]).ask()) if use_questionary else int(input("1 for Euro, 2 for INR: "))
+        value = float(input("Enter value: "))
+        print(monFRA(value), "EUR" if e == 1 else monINR(value), "INR")
+    elif a == 3:
+        f = int(questionary.select("Add (1), Sub (2), Div (3), Mul (4)", choices=["1", "2", "3", "4"]).ask()) if use_questionary else int(input("1=Add, 2=Sub, 3=Div, 4=Mul: "))
+        x = float(input("Enter first value: "))
+        y = float(input("Enter second value: "))
+        if f == 1: print(add(x, y))
+        elif f == 2: print(sub(x, y))
+        elif f == 3: print(div(x, y))
+        elif f == 4: print(mul(x, y))
+    elif a == 4:
+        print("Exiting...")
+        sys.exit(0)
+    else:
+        print("Invalid operation")
+
+    print(Fore.RED + "=" * 40)
+    print("Thanks for using the program")
+    print("dev-Vardhan from India 😃 :)")
+    print("=" * 40)

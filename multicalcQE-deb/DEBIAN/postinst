@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "This process will require internet connection"
+echo "Installing Python modules..."
+pip3 install --quiet colorama questionary
